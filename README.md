@@ -63,15 +63,15 @@ AppSecret
 
 3️⃣ GCP Windows VM 환경 설정
 
-1️⃣ Python 설치
+1️. Python 설치
 
 winget install Python.Python.3.10
 
-2️⃣ 필요한 라이브러리 설치
+2️2. 필요한 라이브러리 설치
 
 pip install requests flask pandas
 
-3️⃣ API 호출 테스트용 폴더 생성
+3️. API 호출 테스트용 폴더 생성
 
 mkdir C:\kiwoom_rest_bot
 cd C:\kiwoom_rest_bot
@@ -121,54 +121,8 @@ print("Access Token:", token)
 
 ---
 
-6️⃣ 시세조회 (예: 삼성전자 현재가)
-
-import requests
-
-ACCESS_TOKEN = token  # 위에서 발급받은 토큰 사용
-
-url = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-price"
-headers = {
-    "Authorization": f"Bearer {ACCESS_TOKEN}",
-    "appkey": APP_KEY,
-    "appsecret": APP_SECRET,
-    "tr_id": "FHKST01010100"  # 주식현재가조회
-}
-params = {"FID_COND_MRKT_DIV_CODE": "J", "FID_INPUT_ISCD": "005930"}
-
-res = requests.get(url, headers=headers, params=params)
-data = res.json()
-print("삼성전자 현재가:", data["output"]["stck_prpr"])
-
-
----
-
-7️⃣ 주문 (매수/매도)
-
-url = "https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/trading/order-cash"
-
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {ACCESS_TOKEN}",
-    "appkey": APP_KEY,
-    "appsecret": APP_SECRET,
-    "tr_id": "TTTC0802U",  # 매수: TTTC0802U, 매도: TTTC0801U
-}
-
-body = {
-    "CANO": "12345678",           # 계좌번호 앞 8자리
-    "ACNT_PRDT_CD": "01",         # 계좌상품코드 (보통 01)
-    "PDNO": "005930",             # 종목코드
-    "ORD_DVSN": "00",             # 00: 지정가, 01: 시장가
-    "ORD_QTY": "10",              # 수량
-    "ORD_UNPR": "70000"           # 주문단가
-}
-
-res = requests.post(url, headers=headers, data=json.dumps(body))
-print(res.json())
-
-
----
+6️⃣ koreainvest.py 다운로드 및 실행
+기능  시세조회 (예: 삼성전자 현재가), 주문 (매수/매도)
 
 8️⃣ Flask 서버로 자동화 제어 예시
 
