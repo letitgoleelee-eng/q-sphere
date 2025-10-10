@@ -130,7 +130,7 @@ print("Access Token:", token)
 #영웅문을 모의투자 모드로 로그인해야 모의주문이 가능합니다.
 #시장가로 주문하려면 "hoga": "03", price=0 으로 설정
 
-
+---
 8️⃣ Flask 서버로 자동화 제어 예시
 
 from flask import Flask, jsonify
